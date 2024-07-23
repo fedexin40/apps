@@ -10,7 +10,7 @@
     "generate": "graphql-codegen",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "start": "next start",
+    "start": "next start --port=4000",
     "test": "vitest"
   },
   "dependencies": {
