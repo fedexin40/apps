@@ -29,6 +29,7 @@ const exampleOrderPayload: OrderDetailsFragment = {
   displayGrossPrices: true,
   isShippingRequired: true,
   userEmail: "adrian.king@example.com",
+  shippingMethodName: "fedex",
   metadata: [
     {
       key: "metadata-example",
@@ -200,6 +201,11 @@ const exampleOrderPayload: OrderDetailsFragment = {
       currency: "USD",
     },
   },
+  fulfillments: [
+    {
+      trackingNumber: "111111",
+    },
+  ],
 };
 
 const orderCreatedPayload: OrderCreatedWebhookPayloadFragment = {

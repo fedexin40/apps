@@ -125,36 +125,118 @@ const defaultOrderCreatedMjmlTemplate = `<mjml>
 
 const defaultOrderFulfilledMjmlTemplate = `<mjml>
   <mj-body>
-    <mj-section>
-      <mj-column>
-        <mj-text font-size="16px">
-          Hello!
+    <mj-section border-left="2px solid #dbb393">
+      <mj-column width="100%">
+        <mj-image align="center" width="150px" src="https://shop.proyecto705.com/_next/image?url=%2FlogoNegro.png&w=640&q=75" />
+      </mj-column>
+    </mj-section>
+    <mj-section border-left="2px solid #dbb393">
+      <mj-column width="100%">
+        <mj-text font-size="16px" letter-spacing="1px">
+          Hola {{order.billingAddress.firstName}} !
         </mj-text>
-        <mj-text>
-          Order {{ order.number }} has been fulfilled.
+        <mj-text letter-spacing="1px" line-height="20px">
+          Seguimos que no cabemos de emoción por tu compra, y esperamos que la disfrutes tanto como nostros.
+        </mj-text>
+        <mj-spacer height="50px" />
+        <mj-text font-size="15px" letter-spacing="1px" line-height="20px">
+          Información de envío
+        </mj-text>
+        <mj-text letter-spacing="1px" line-height="10px">
+          Paqueteria: {{ order.shippingMethodName }}
+        </mj-text>
+        <mj-text letter-spacing="1px" line-height="20px">
+          Número de rastreo: {{ order.fulfillment.trackingNumber }}
         </mj-text>
       </mj-column>
     </mj-section>
-    ${addressSection}
-    ${orderLinesSection}
+    <mj-section border-left="2px solid #dbb393">
+      <mj-column>
+        <mj-divider border-width="1px" border-color="lightgrey"/>
+        <mj-social align="left" padding-top="10px">
+          <mj-social-element name="facebook" background-color="white" src="https://shop.proyecto705.com/_next/image?url=%2FfacebookRosa.png&w=640&q=75"> </mj-social-element>
+          <mj-social-element name="instagram" background-color="white" src="https://shop.proyecto705.com/_next/image?url=%2FinstagramRosa.png&w=640&q=75"> </mj-social-element>
+        </mj-social>
+      </mj-column>
+    </mj-section>
   </mj-body>
 </mjml>`;
 
 const defaultOrderConfirmedMjmlTemplate = `<mjml>
   <mj-body>
-    <mj-section>
-      <mj-column>
-        <mj-text font-size="16px">
-        Hello!
+    <mj-section border-left="2px solid #dbb393">
+      <mj-column width="100%">
+        <mj-image align="center" width="150px" src="https://shop.proyecto705.com/_next/image?url=%2FlogoNegro.png&w=640&q=75" />
+      </mj-column>
+    </mj-section>
+    <mj-section border-left="2px solid #dbb393">
+      <mj-column width="100%">
+        <mj-text font-size="16px" letter-spacing="1px">
+          Hola! {{user.first_name}}
         </mj-text>
-        <mj-text>
-          Order {{ order.number}} has been confirmed.
+        <mj-text letter-spacing="1px">
+          Antes que nada, !! Muchisimas gracias por comprar con nosotros !!
+        </mj-text>
+        <mj-text letter-spacing="1px">
+        Tu orden número {{ order.number }} ha sido creada.
+        </mj-text>
+        <mj-text letter-spacing="1px">
+          Te enviaremos un correo con los detalles del envío cuando todo este listo.
         </mj-text>
       </mj-column>
     </mj-section>
-    ${addressSection}
-    ${orderLinesSection}
-    </mj-body>
+    <mj-section border-left="2px solid #dbb393">
+      <mj-column>
+        <mj-text font-size="14px" font-weight="500" letter-spacing="1px">
+          Dirección de envío
+        </mj-text>
+        <mj-text letter-spacing="1px" line-height="1.7">
+          {{ order.billingAddress.streetAddress1 }}
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section border-left="2px solid #dbb393">
+      <mj-column>
+        <mj-table>
+          <tbody>
+            {{#each order.lines }}
+              <tr>
+                <td>
+                  {{ this.quantity }} x {{ this.productName }} - {{ this.variantName }}
+                </td>
+                <td align="right">
+                  {{ this.totalPrice.gross.amount }} {{ this.totalPrice.gross.currency }}
+                </td>
+              </tr>
+            {{/each}}
+            <tr>
+              <td>
+              </td>
+              <td align="right">
+                Envio: {{ order.shippingPrice.gross.amount }} {{ order.shippingPrice.gross.currency }}
+              </td>
+            </tr>
+            <tr>
+              <td>
+              </td>
+              <td align="right">
+                Total: {{ order.total.gross.amount }} {{ order.total.gross.currency }}
+              </td>
+            </tr>
+          </tbody>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+    <mj-section border-left="2px solid #dbb393">
+      <mj-column>
+        <mj-divider border-width="1px" border-color="lightgrey"/>
+        <mj-social align="left" padding-top="10px">
+          <mj-social-element name="facebook" background-color="white" src="https://shop.proyecto705.com/_next/image?url=%2FfacebookRosa.png&w=640&q=75"> </mj-social-element>
+          <mj-social-element name="instagram" background-color="white" src="https://shop.proyecto705.com/_next/image?url=%2FinstagramRosa.png&w=640&q=75"> </mj-social-element>
+        </mj-social>
+      </mj-column>
+    </mj-section>
+  </mj-body>
 </mjml>`;
 
 const defaultOrderFullyPaidMjmlTemplate = `<mjml>
@@ -241,18 +323,29 @@ const defaultGiftCardSentMjmlTemplate = `<mjml>
 
 const defaultAccountConfirmationMjmlTemplate = `<mjml>
   <mj-body>
-    <mj-section>
-      <mj-column>
-        <mj-text font-size="16px">
-          Hi {{user.first_name}}!
-        </mj-text>
-        <mj-text>
-          Your account has been created. Please follow the link to activate it: 
-        </mj-text>
-        <mj-button href="{{confirm_url}}"  background-color="black" color="white" padding-top="50px" inner-padding="20px" width="70%">
-            Activate the account 
-        </mj-button>
+    <mj-section border-left="2px solid #dbb393">
+      <mj-column width="100%" >
+        <mj-image align="center" width="100px" src="https://shop.proyecto705.com/_next/image?url=%2FlogoNegro.png&w=640&q=75"/>
       </mj-column>
+    </mj-section>
+    <mj-section full-width="full-width" background-color="white" border-left="2px solid #dbb393">
+      <mj-group>
+        <mj-column width="100%" >
+          <mj-text align="left" font-size="18px" letter-spacing="1px" color="#a57b59">Un paso más...</mj-text>
+          <mj-spacer height="30px"/>
+          <mj-text align="left" line-height="1.7" letter-spacing="1px">Hola {{user.first_name}} haz creado tu cuenta con exito, por favor da click en el botón de abajo para activar todo lo que Proyecto 705 tiene para ti.</mj-text>
+          <mj-spacer height="20px"/>
+          <mj-button border-radius="15px" align="center" background-color="#a57b59" letter-spacing="1px" color="white" href="{{confirm_url}}">
+            Confirmar ahora
+          </mj-button>
+          <mj-spacer height="20px"/>
+          <mj-divider border-width="1px" border-color="lightgrey"/>
+          <mj-social align="left" padding-top="10px">
+            <mj-social-element name="facebook" background-color="white" src="https://shop.proyecto705.com/_next/image?url=%2FfacebookRosa.png&w=640&q=75"> </mj-social-element>
+            <mj-social-element name="instagram" background-color="white" src="https://shop.proyecto705.com/_next/image?url=%2FinstagramRosa.png&w=640&q=75"> </mj-social-element>
+          </mj-social>
+        </mj-column>
+      </mj-group>
     </mj-section>
   </mj-body>
 </mjml>`;
@@ -367,15 +460,15 @@ export const defaultMjmlTemplates: Record<MessageEventTypes, string> = {
 export const defaultMjmlSubjectTemplates: Record<MessageEventTypes, string> = {
   ACCOUNT_CHANGE_EMAIL_CONFIRM: "Email change confirmation",
   ACCOUNT_CHANGE_EMAIL_REQUEST: "Email change request",
-  ACCOUNT_CONFIRMATION: "Account activation",
+  ACCOUNT_CONFIRMATION: "Activa tu cuenta",
   ACCOUNT_DELETE: "Account deletion",
   ACCOUNT_PASSWORD_RESET: "Password reset request",
   GIFT_CARD_SENT: "Gift card",
   INVOICE_SENT: "New invoice has been created",
   ORDER_CANCELLED: "Order {{ order.number }} has been cancelled",
-  ORDER_CONFIRMED: "Order {{ order.number }} has been confirmed",
-  ORDER_CREATED: "Order {{ order.number }} has been created",
-  ORDER_FULFILLED: "Order {{ order.number }} has been fulfilled",
+  ORDER_CONFIRMED: "La orden {{ order.number }} fue creada exitosamente",
+  ORDER_CREATED: "La orden {{ order.number }} fue creada",
+  ORDER_FULFILLED: "Detalles del envio, orden {{ order.number }}",
   ORDER_FULFILLMENT_UPDATE: "Fulfillment for order {{ order.number }} has been updated",
   ORDER_FULLY_PAID: "Order {{ order.number }} has been fully paid",
   ORDER_REFUNDED: "Order {{ order.number }} has been refunded",

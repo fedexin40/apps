@@ -73,6 +73,7 @@ const handler: NextWebhookApiHandler<OrderFulfilledWebhookPayloadFragment> = asy
 
   loggerContext.set(ObservabilityAttributes.CHANNEL_SLUG, channel);
 
+  console.log(payload.order);
   const useCase = useCaseFactory.createFromAuthData(authData);
 
   try {
